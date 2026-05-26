@@ -4,12 +4,21 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Morgan Le</title>
+  <meta name="description" content="Morgan Le — Data Engineer bridging the gap between data engineering and business strategy. Based in New York.">
+  <meta property="og:title" content="Morgan Le">
+  <meta property="og:description" content="Data Engineer. Columbia MSDS. New York.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://lhnminh.github.io">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Inter:wght@300;400&display=swap" rel="stylesheet">
   <style>
     /* ── Reset ── */
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html {
+      scroll-behavior: smooth;
+    }
 
     /* ── Base ── */
     body {
@@ -261,6 +270,53 @@
     }
 
     .contact-item a:hover { border-bottom-color: #1a1a1a; }
+
+    /* ── Responsive ── */
+    @media (max-width: 768px) {
+      nav {
+        padding: 24px 28px;
+      }
+
+      .nav-links {
+        gap: 20px;
+      }
+
+      .nav-links a {
+        font-size: 10px;
+        letter-spacing: 0.12em;
+      }
+
+      .hero {
+        padding: 0 28px 72px;
+      }
+
+      .hero-ghost {
+        font-size: clamp(80px, 22vw, 160px);
+        letter-spacing: -4px;
+        bottom: -30px;
+        right: -8px;
+      }
+
+      .section {
+        padding: 80px 28px;
+      }
+
+      .exp-top {
+        flex-direction: column;
+        gap: 4px;
+      }
+
+      .skills-row {
+        grid-template-columns: 1fr;
+        gap: 36px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .nav-links {
+        display: none;
+      }
+    }
   </style>
 </head>
 <body>
