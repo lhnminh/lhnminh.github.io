@@ -1,3 +1,19 @@
+@font-face {
+  font-family: 'LF-Serif';
+  src: url('./fonts/LF-Serif-Roman-Var.woff2') format('woff2');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'LF-Serif';
+  src: url('./fonts/LoveFromSerifVar-Italic.woff2') format('woff2');
+  font-weight: 100 900;
+  font-style: italic;
+  font-display: swap;
+}
+
 /* ── Reset ── */
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -9,7 +25,7 @@ html {
 body {
   background: #f5f4f0;
   color: #1a1a1a;
-  font-family: 'Cormorant Garamond', serif;
+  font-family: 'LF-Serif', 'Cormorant Garamond', serif;
   font-weight: 300;
   -webkit-font-smoothing: antialiased;
 }
