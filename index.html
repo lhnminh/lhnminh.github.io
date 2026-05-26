@@ -1,12 +1,413 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Minh Le</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Morgan Le</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Inter:wght@300;400&display=swap" rel="stylesheet">
+  <style>
+    /* ── Reset ── */
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    /* ── Base ── */
+    body {
+      background: #f5f4f0;
+      color: #1a1a1a;
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 300;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── Nav ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 32px 56px;
+      z-index: 10;
+    }
+
+    .nav-name {
+      font-family: 'Inter', sans-serif;
+      font-size: 13px;
+      font-weight: 300;
+      letter-spacing: 0.08em;
+      opacity: 0;
+      transform: translateY(-6px);
+      transition: opacity 0.4s ease, transform 0.4s ease;
+    }
+
+    .nav-name.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 40px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-family: 'Inter', sans-serif;
+      font-size: 11px;
+      font-weight: 300;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #999;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: #1a1a1a; }
+
+    /* ── Hero ── */
+    .hero {
+      height: 100vh;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 0 56px 96px;
+      overflow: hidden;
+    }
+
+    .hero-dots {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0.15;
+      pointer-events: none;
+    }
+
+    .hero-ghost {
+      position: absolute;
+      bottom: -60px;
+      right: -10px;
+      font-size: clamp(140px, 20vw, 280px);
+      font-weight: 300;
+      letter-spacing: -8px;
+      line-height: 1;
+      color: #1a1a1a;
+      opacity: 0.05;
+      user-select: none;
+      pointer-events: none;
+      white-space: nowrap;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 700px;
+    }
+
+    .hero-name {
+      font-size: clamp(56px, 8vw, 96px);
+      font-weight: 300;
+      letter-spacing: -3px;
+      line-height: 0.95;
+      margin-bottom: 36px;
+    }
+
+    .hero-tagline {
+      font-size: 21px;
+      font-weight: 300;
+      font-style: italic;
+      color: #666;
+      line-height: 1.55;
+      max-width: 460px;
+    }
+
+    /* ── Sections ── */
+    .section {
+      padding: 112px 56px;
+      max-width: 860px;
+      border-top: 1px solid #e0ddd8;
+    }
+
+    .label {
+      font-family: 'Inter', sans-serif;
+      font-size: 10px;
+      font-weight: 300;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: #bbb;
+      margin-bottom: 52px;
+    }
+
+    /* ── About ── */
+    .about-text {
+      font-size: 23px;
+      font-weight: 300;
+      line-height: 1.8;
+      color: #333;
+      max-width: 560px;
+    }
+
+    /* ── Education ── */
+    .edu-item { margin-bottom: 44px; }
+    .edu-item:last-child { margin-bottom: 0; }
+
+    .edu-school {
+      font-size: 26px;
+      font-weight: 300;
+      margin-bottom: 6px;
+    }
+
+    .edu-detail {
+      font-family: 'Inter', sans-serif;
+      font-size: 11px;
+      font-weight: 300;
+      color: #aaa;
+      letter-spacing: 0.06em;
+    }
+
+    /* ── Experience ── */
+    .exp-item {
+      margin-bottom: 56px;
+      padding-bottom: 56px;
+      border-bottom: 1px solid #e8e6e1;
+    }
+    .exp-item:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+
+    .exp-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 6px;
+    }
+
+    .exp-company {
+      font-size: 26px;
+      font-weight: 300;
+      letter-spacing: -0.5px;
+    }
+
+    .exp-date {
+      font-family: 'Inter', sans-serif;
+      font-size: 11px;
+      font-weight: 300;
+      color: #bbb;
+    }
+
+    .exp-role {
+      font-family: 'Inter', sans-serif;
+      font-size: 11px;
+      font-weight: 300;
+      letter-spacing: 0.1em;
+      color: #aaa;
+      margin-bottom: 16px;
+      text-transform: uppercase;
+    }
+
+    .exp-desc {
+      font-size: 18px;
+      font-weight: 300;
+      color: #555;
+      line-height: 1.75;
+    }
+
+    /* ── Skills ── */
+    .skills-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 52px;
+      max-width: 480px;
+    }
+
+    .skill-group-label {
+      font-family: 'Inter', sans-serif;
+      font-size: 10px;
+      font-weight: 300;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #bbb;
+      margin-bottom: 16px;
+    }
+
+    .skill-items {
+      font-size: 18px;
+      font-weight: 300;
+      color: #333;
+      line-height: 2;
+    }
+
+    /* ── Contact ── */
+    .contact-list { display: flex; flex-direction: column; gap: 32px; }
+
+    .contact-item span {
+      display: block;
+      font-family: 'Inter', sans-serif;
+      font-size: 10px;
+      font-weight: 300;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #bbb;
+      margin-bottom: 6px;
+    }
+
+    .contact-item a {
+      font-size: 20px;
+      font-weight: 300;
+      color: #1a1a1a;
+      text-decoration: none;
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.25s;
+    }
+
+    .contact-item a:hover { border-bottom-color: #1a1a1a; }
+  </style>
 </head>
 <body>
-    <h1> Minh Le</h1>
-</body>
 
+  <nav>
+    <div class="nav-name" id="navName">Morgan Le</div>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#education">Education</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- Hero -->
+  <div class="hero" id="hero">
+    <svg class="hero-dots" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <pattern id="dot" x="0" y="0" width="22" height="22" patternUnits="userSpaceOnUse">
+          <circle cx="2" cy="2" r="1.3" fill="#1a1a1a"/>
+        </pattern>
+      </defs>
+      <rect width="100%" height="100%" fill="url(#dot)"/>
+    </svg>
+    <div class="hero-ghost" id="heroGhost">Morgan Le</div>
+    <div class="hero-content">
+      <h1 class="hero-name">Morgan Le</h1>
+      <p class="hero-tagline">TAGLINE_PLACEHOLDER</p>
+    </div>
+  </div>
+
+  <!-- About -->
+  <div class="section" id="about">
+    <div class="label">About</div>
+    <p class="about-text">ABOUT_PLACEHOLDER</p>
+  </div>
+
+  <!-- Education -->
+  <div class="section" id="education">
+    <div class="label">Education</div>
+    <div class="edu-item">
+      <div class="edu-school">Columbia University</div>
+      <div class="edu-detail">M.S. Data Science &nbsp;·&nbsp; 2026 – 2027</div>
+    </div>
+    <div class="edu-item">
+      <div class="edu-school">University of Rochester</div>
+      <div class="edu-detail">B.S. Information Systems &amp; Economics &nbsp;·&nbsp; 3.8 GPA &nbsp;·&nbsp; Minor in Computer Science</div>
+    </div>
+  </div>
+
+  <!-- Experience -->
+  <div class="section" id="experience">
+    <div class="label">Experience</div>
+
+    <div class="exp-item">
+      <div class="exp-top">
+        <span class="exp-company">Shopee</span>
+        <span class="exp-date">Jun 2025 – Present</span>
+      </div>
+      <div class="exp-role">Product Operations &amp; Analytics Associate</div>
+      <div class="exp-desc">SHOPEE_DESC_PLACEHOLDER</div>
+    </div>
+
+    <div class="exp-item">
+      <div class="exp-top">
+        <span class="exp-company">Boston Consulting Group</span>
+        <span class="exp-date">Jan – Jun 2025</span>
+      </div>
+      <div class="exp-role">Consultant</div>
+      <div class="exp-desc">BCG_DESC_PLACEHOLDER</div>
+    </div>
+
+    <div class="exp-item">
+      <div class="exp-top">
+        <span class="exp-company">Peloton</span>
+        <span class="exp-date">Dec 2023 – Jun 2024</span>
+      </div>
+      <div class="exp-role">Business Operations Analyst II</div>
+      <div class="exp-desc">PELOTON_DESC_PLACEHOLDER</div>
+    </div>
+
+    <div class="exp-item">
+      <div class="exp-top">
+        <span class="exp-company">Samsung Electronics Americas</span>
+        <span class="exp-date">May – Dec 2023</span>
+      </div>
+      <div class="exp-role">Supply Chain Data Ops Analyst</div>
+      <div class="exp-desc">SAMSUNG_DESC_PLACEHOLDER</div>
+    </div>
+  </div>
+
+  <!-- Skills -->
+  <div class="section" id="skills">
+    <div class="label">Skills</div>
+    <div class="skills-row">
+      <div>
+        <div class="skill-group-label">Languages</div>
+        <div class="skill-items">Python<br>SQL<br>Java<br>JavaScript</div>
+      </div>
+      <div>
+        <div class="skill-group-label">Technologies</div>
+        <div class="skill-items">AWS · Azure · GCP<br>Docker · Terraform<br>BigQuery · Looker<br>Git</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Contact -->
+  <div class="section" id="contact">
+    <div class="label">Contact</div>
+    <div class="contact-list">
+      <div class="contact-item">
+        <span>Email</span>
+        <a href="mailto:lehnminh@gmail.com">lehnminh@gmail.com</a>
+      </div>
+      <div class="contact-item">
+        <span>LinkedIn</span>
+        <a href="https://linkedin.com/in/lhnminh" target="_blank" rel="noopener">linkedin.com/in/lhnminh</a>
+      </div>
+      <div class="contact-item">
+        <span>GitHub</span>
+        <a href="https://github.com/lhnminh" target="_blank" rel="noopener">github.com/lhnminh</a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const hero = document.getElementById('hero');
+    const navName = document.getElementById('navName');
+    const heroGhost = document.getElementById('heroGhost');
+
+    window.addEventListener('scroll', () => {
+      const scrollY = window.scrollY;
+      const heroHeight = hero.offsetHeight;
+
+      // Nav name: fade in once scrolled past 50% of hero
+      if (scrollY > heroHeight * 0.5) {
+        navName.classList.add('visible');
+      } else {
+        navName.classList.remove('visible');
+      }
+
+      // Ghost name: fade out by 30% scroll through hero
+      const ghostFade = Math.max(0, 1 - (scrollY / (heroHeight * 0.3)));
+      heroGhost.style.opacity = (0.05 * ghostFade).toString();
+    });
+  </script>
+
+</body>
 </html>
