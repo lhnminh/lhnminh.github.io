@@ -371,5 +371,10 @@ main {
 
   main {
     padding-left: 0;
+    border-left: none;
+  }
+
+  .local-time {
+    display: none;
   }
 }
