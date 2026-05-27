@@ -9,9 +9,6 @@
   <meta property="og:description" content="Data Engineer. Columbia MSDS. New York.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://lhnminh.github.io">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Inter:wght@300;400&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -23,8 +20,7 @@
         <a href="#about">about</a>
         <a href="#experience">experience</a>
         <a href="#education">education</a>
-        <a href="#skills">skills</a>
-        <a href="#connect">connect</a>
+<a href="#connect">connect</a>
       </nav>
     </aside>
 
@@ -95,21 +91,7 @@
 
       </section>
 
-      <section id="skills">
-        <div class="section-label">Skills</div>
-        <div class="skills-grid">
-          <div>
-            <div class="skill-group-label">Languages</div>
-            <div class="skill-items">Python<br>SQL<br>Java<br>JavaScript</div>
-          </div>
-          <div>
-            <div class="skill-group-label">Technologies</div>
-            <div class="skill-items">AWS &middot; Azure &middot; GCP<br>Docker &middot; Terraform<br>BigQuery &middot; Looker<br>Git</div>
-          </div>
-        </div>
-      </section>
-
-      <section id="connect">
+<section id="connect">
         <div class="section-label">Connect</div>
         <div class="connect-list">
           <a href="mailto:lehnminh@gmail.com">lehnminh@gmail.com</a>
@@ -125,17 +107,30 @@
     const sections = document.querySelectorAll('section[id]');
     const navLinks = document.querySelectorAll('.sidebar a');
 
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          navLinks.forEach(a => a.classList.remove('active'));
-          const active = document.querySelector(`.sidebar a[href="#${entry.target.id}"]`);
-          if (active) active.classList.add('active');
-        }
-      });
-    }, { rootMargin: '-30% 0px -60% 0px' });
+    function show(id) {
+      const update = () => {
+        sections.forEach(s => s.classList.toggle('active', s.id === id));
+        navLinks.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + id));
+        document.querySelector('.intro').classList.toggle('hidden', id !== 'about' && id !== 'connect');
+        history.replaceState(null, '', '#' + id);
+      };
+      if (document.startViewTransition) {
+        document.startViewTransition(update);
+      } else {
+        update();
+      }
+    }
 
-    sections.forEach(s => observer.observe(s));
+    navLinks.forEach(a => {
+      a.addEventListener('click', e => {
+        e.preventDefault();
+        show(a.getAttribute('href').slice(1));
+      });
+    });
+
+    // Show section from URL hash, or default to about
+    const initial = location.hash.slice(1);
+    show(initial && document.getElementById(initial) ? initial : 'about');
   </script>
 
 </body>

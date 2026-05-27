@@ -1,28 +1,11 @@
-@font-face {
-  font-family: 'LF-Serif';
-  src: url('./fonts/LF-Serif-Roman-Var.woff2') format('woff2');
-  font-weight: 100 900;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'LF-Serif';
-  src: url('./fonts/LoveFromSerifVar-Italic.woff2') format('woff2');
-  font-weight: 100 900;
-  font-style: italic;
-  font-display: swap;
-}
 
 /* ── Reset ── */
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
-html { scroll-behavior: smooth; }
-
 body {
   background: #f5f4f0;
   color: #1a1a1a;
-  font-family: 'LF-Serif', 'Cormorant Garamond', serif;
+  font-family: Baskerville, 'Baskerville Old Face', 'Cormorant Garamond', serif;
   font-weight: 300;
   -webkit-font-smoothing: antialiased;
   min-height: 100vh;
@@ -53,8 +36,7 @@ body {
 }
 
 .sidebar a {
-  font-family: 'Inter', sans-serif;
-  font-size: 12px;
+  font-size: 13px;
   font-style: italic;
   color: #c0bbb4;
   text-decoration: none;
@@ -77,6 +59,10 @@ main {
   margin-bottom: 56px;
 }
 
+.intro.hidden {
+  display: none;
+}
+
 .intro h1 {
   font-size: 20px;
   font-weight: 400;
@@ -85,25 +71,52 @@ main {
 }
 
 .intro .subtitle {
-  font-family: 'Inter', sans-serif;
-  font-size: 12px;
-  font-weight: 300;
+  font-size: 13px;
+  font-style: italic;
   color: #aaa;
-  letter-spacing: 0.03em;
 }
 
 /* ── Sections ── */
 section {
-  margin-bottom: 56px;
+  display: none;
 }
 
+section.active {
+  display: block;
+}
+
+/* ── View transition crossfade (Josh Bradley style) ── */
+main {
+  view-transition-name: crossfade;
+}
+
+@keyframes hide {
+  from { opacity: 1; filter: blur(0); }
+  to   { opacity: 0; filter: blur(4px); }
+}
+
+@keyframes appear {
+  from { opacity: 0; filter: blur(4px); }
+  to   { opacity: 1; filter: blur(0); }
+}
+
+@supports (view-transition-name: none) {
+  @media not (prefers-reduced-motion: reduce) {
+    ::view-transition-old(crossfade) {
+      animation: 0.4s cubic-bezier(0.6, 0, 0.8, 1) forwards hide;
+    }
+    ::view-transition-new(crossfade) {
+      opacity: 0;
+      animation: 0.6s ease 0.2s forwards appear;
+    }
+  }
+}
+
+/* ── Section label ── */
 .section-label {
-  font-family: 'Inter', sans-serif;
-  font-size: 10px;
-  font-weight: 400;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: #ccc;
+  font-size: 11px;
+  font-style: italic;
+  color: #bbb;
   margin-bottom: 22px;
 }
 
@@ -135,15 +148,14 @@ section {
 }
 
 .exp-role {
-  font-family: 'Inter', sans-serif;
-  font-size: 11px;
+  font-size: 13px;
+  font-style: italic;
   color: #aaa;
   flex: 1;
 }
 
 .exp-date {
-  font-family: 'Inter', sans-serif;
-  font-size: 11px;
+  font-size: 12px;
   color: #c0bbb4;
   white-space: nowrap;
 }
@@ -165,33 +177,10 @@ section {
 }
 
 .edu-detail {
-  font-family: 'Inter', sans-serif;
-  font-size: 11px;
+  font-size: 13px;
+  font-style: italic;
   color: #aaa;
   line-height: 1.7;
-}
-
-/* ── Skills ── */
-.skills-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 28px 48px;
-  max-width: 380px;
-}
-
-.skill-group-label {
-  font-family: 'Inter', sans-serif;
-  font-size: 10px;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: #c0bbb4;
-  margin-bottom: 10px;
-}
-
-.skill-items {
-  font-size: 14px;
-  line-height: 2;
-  color: #444;
 }
 
 /* ── Connect ── */
@@ -202,9 +191,8 @@ section {
 }
 
 .connect-list a {
-  font-family: 'Inter', sans-serif;
-  font-size: 12px;
-  color: #666;
+  font-size: 15px;
+  color: #555;
   text-decoration: none;
   border-bottom: 1px solid transparent;
   width: fit-content;
