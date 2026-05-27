@@ -153,10 +153,18 @@ main {
 
 /* ── Experience ── */
 .exp-item {
-  border: 1px solid #e8e4de;
+  border: 1px solid transparent;
   border-radius: 3px;
   margin-bottom: 8px;
   cursor: pointer;
+  background:
+    linear-gradient(#f5f4f0, #f5f4f0) padding-box,
+    radial-gradient(
+      50px circle at var(--x, 50%) var(--y, 50%),
+      rgba(100, 100, 100, var(--glow, 0)),
+      transparent 100%
+    ) border-box,
+    linear-gradient(#e8e4de, #e8e4de) border-box;
 }
 
 .exp-item:last-child { margin-bottom: 0; }
