@@ -331,6 +331,22 @@ main {
   background-size: 100% 1px;
 }
 
+/* ── Local time ── */
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+.colon { animation: blink 1s step-end infinite; }
+.local-time {
+  position: fixed;
+  bottom: 32px;
+  left: 40px;
+  font-size: 11px;
+  font-style: italic;
+  color: #c0bbb4;
+}
+
+
 /* ── Responsive ── */
 @media (max-width: 640px) {
   .layout {

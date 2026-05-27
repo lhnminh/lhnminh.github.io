@@ -1,3 +1,20 @@
+// Local time
+const timeEl = document.getElementById('timeText');
+
+function updateTime() {
+  const now = new Date();
+  const time = now.toLocaleTimeString('en-US', {
+    hour: 'numeric',
+    minute: '2-digit',
+    hour12: true,
+    timeZone: 'America/New_York'
+  }).toLowerCase();
+  timeEl.innerHTML = time.replace(':', '<span class="colon">:</span>') + ' in New York';
+}
+
+updateTime();
+setInterval(updateTime, 10000);
+
 const sections = document.querySelectorAll('section[id]');
 const navLinks = document.querySelectorAll('.sidebar a');
 
