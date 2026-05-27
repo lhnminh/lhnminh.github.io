@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
+  <!-- Screen -->
+  <rect x="8" y="10" width="48" height="32" rx="3" stroke="#c0bbb4" stroke-width="3.5"/>
+  <!-- Stand -->
+  <line x1="32" y1="42" x2="32" y2="52" stroke="#c0bbb4" stroke-width="3.5" stroke-linecap="round"/>
+  <!-- Base -->
+  <line x1="22" y1="52" x2="42" y2="52" stroke="#c0bbb4" stroke-width="3.5" stroke-linecap="round"/>
+</svg>
