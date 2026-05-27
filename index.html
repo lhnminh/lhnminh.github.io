@@ -9,6 +9,9 @@
   <meta property="og:description" content="Data Engineer. Columbia MSDS. New York.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://lhnminh.github.io">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -32,46 +35,81 @@
       </div>
 
       <section id="about">
-        <p class="about-text">ABOUT_PLACEHOLDER</p>
+        <p class="about-text">I am a Masters student in Data Science at Columbia University, with a background spanning consulting, consumer tech, and e-commerce across teams at BCG, Peloton, Samsung, and Shopee.</p>
+        <p class="about-text">My work sits at the intersection of engineering and strategy — building the systems that make data usable, then working backward to understand what questions those systems should answer.</p>
+        <p class="about-text">I am drawn to problems where the infrastructure and the insight are inseparable:</p>
+        <ul class="about-list">
+          <li>Designing pipelines that reduce manual overhead and scale across distributed systems</li>
+          <li>Translating operational data into decisions that move business units</li>
+          <li>Bridging technical implementation with strategic context</li>
+        </ul>
       </section>
 
       <section id="experience">
         <div class="section-label">Experience</div>
 
         <div class="exp-item">
-          <div class="exp-row">
-            <span class="exp-company">Shopee</span>
-            <span class="exp-role">Product Operations &amp; Analytics Associate</span>
-            <span class="exp-date">2025 &ndash; Present</span>
+          <div class="exp-summary">
+            <div class="exp-left">
+              <span class="exp-company">Shopee</span>
+              <span class="exp-role">Product Operations &amp; Analytics Associate</span>
+            </div>
+            <div class="exp-right">
+              <span class="exp-date">2025 &ndash; Present</span>
+              <span class="exp-plus">+</span>
+            </div>
           </div>
-          <p class="exp-desc">SHOPEE_DESC_PLACEHOLDER</p>
+          <div class="exp-body">
+            <div class="exp-inner"><p class="exp-desc">Built automated pipelines to synchronize sales and P&amp;L data across distributed databases, and transitioned manual reporting into a self-service analytics tool that drove 25% YoY growth.</p></div>
+          </div>
         </div>
 
         <div class="exp-item">
-          <div class="exp-row">
-            <span class="exp-company">Boston Consulting Group</span>
-            <span class="exp-role">Consultant</span>
-            <span class="exp-date">Jan &ndash; Jun 2025</span>
+          <div class="exp-summary">
+            <div class="exp-left">
+              <span class="exp-company">Boston Consulting Group</span>
+              <span class="exp-role">Consultant</span>
+            </div>
+            <div class="exp-right">
+              <span class="exp-date">Jan &ndash; Jun 2025</span>
+              <span class="exp-plus">+</span>
+            </div>
           </div>
-          <p class="exp-desc">BCG_DESC_PLACEHOLDER</p>
+          <div class="exp-body">
+            <div class="exp-inner"><p class="exp-desc">Developed data models and market analysis to support product launch strategy and client pricing decisions for private-sector engagements.</p></div>
+          </div>
         </div>
 
         <div class="exp-item">
-          <div class="exp-row">
-            <span class="exp-company">Peloton</span>
-            <span class="exp-role">Business Operations Analyst II</span>
-            <span class="exp-date">Dec 2023 &ndash; Jun 2024</span>
+          <div class="exp-summary">
+            <div class="exp-left">
+              <span class="exp-company">Peloton</span>
+              <span class="exp-role">Business Operations Analyst II</span>
+            </div>
+            <div class="exp-right">
+              <span class="exp-date">Dec 2023 &ndash; Jun 2024</span>
+              <span class="exp-plus">+</span>
+            </div>
           </div>
-          <p class="exp-desc">PELOTON_DESC_PLACEHOLDER</p>
+          <div class="exp-body">
+            <div class="exp-inner"><p class="exp-desc">Led spend analysis for software procurement that uncovered $800K in annual savings and $2M in additional revenue; built BI dashboards that identified $10M in potential savings.</p></div>
+          </div>
         </div>
 
         <div class="exp-item">
-          <div class="exp-row">
-            <span class="exp-company">Samsung Electronics Americas</span>
-            <span class="exp-role">Supply Chain Data Ops Analyst</span>
-            <span class="exp-date">May &ndash; Dec 2023</span>
+          <div class="exp-summary">
+            <div class="exp-left">
+              <span class="exp-company">Samsung Electronics Americas</span>
+              <span class="exp-role">Supply Chain Data Ops Analyst</span>
+            </div>
+            <div class="exp-right">
+              <span class="exp-date">May &ndash; Dec 2023</span>
+              <span class="exp-plus">+</span>
+            </div>
           </div>
-          <p class="exp-desc">SAMSUNG_DESC_PLACEHOLDER</p>
+          <div class="exp-body">
+            <div class="exp-inner"><p class="exp-desc">Automated purchase order workflows and optimized Excel-based reporting tools across 100+ material supply chains.</p></div>
+          </div>
         </div>
 
       </section>
@@ -131,6 +169,14 @@
     // Show section from URL hash, or default to about
     const initial = location.hash.slice(1);
     show(initial && document.getElementById(initial) ? initial : 'about');
+
+    // Expandable experience items
+    document.querySelectorAll('.exp-summary').forEach(summary => {
+      summary.addEventListener('click', () => {
+        const item = summary.closest('.exp-item');
+        item.classList.toggle('open');
+      });
+    });
   </script>
 
 </body>
