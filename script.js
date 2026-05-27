@@ -5,7 +5,7 @@ function show(id) {
   const update = () => {
     sections.forEach(s => s.classList.toggle('active', s.id === id));
     navLinks.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + id));
-    document.querySelector('.intro').classList.toggle('hidden', id !== 'about' && id !== 'connect');
+    document.querySelector('.intro').classList.toggle('hidden', id !== 'about');
     history.replaceState(null, '', '#' + id);
   };
   if (document.startViewTransition) {

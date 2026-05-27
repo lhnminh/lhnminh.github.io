@@ -269,25 +269,22 @@ main {
   line-height: 1.7;
 }
 
-/* ── Connect ── */
-.connect-list {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
+/* ── About contact line ── */
+.about-contact {
+  font-size: 11px;
+  font-style: italic;
+  color: #aaa;
+  margin-top: 20px;
 }
 
-.connect-list a {
-  font-size: 13px;
-  color: #555;
+.about-contact a {
+  color: #aaa;
   text-decoration: none;
-  border-bottom: 1px solid transparent;
-  width: fit-content;
-  transition: color 0.2s, border-color 0.2s;
+  transition: color 0.2s;
 }
 
-.connect-list a:hover {
+.about-contact a:hover {
   color: #1a1a1a;
-  border-bottom-color: #1a1a1a;
 }
 
 /* ── Responsive ── */
