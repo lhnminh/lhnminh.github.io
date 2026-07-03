@@ -15,6 +15,102 @@ function updateTime() {
 updateTime();
 setInterval(updateTime, 10000);
 
+// GitHub contributions
+const contribEl = document.getElementById('githubContribChart');
+const contribDetailEl = document.getElementById('githubContribDetail');
+const contribStatsEl = document.getElementById('githubContribStats');
+const contribHelpText = 'hover to inspect activity';
+
+function contributionLevel(count) {
+  if (count === 0) return 0;
+  if (count < 3) return 1;
+  if (count < 6) return 2;
+  if (count < 10) return 3;
+  return 4;
+}
+
+function dateKey(date) {
+  return date.toISOString().slice(0, 10);
+}
+
+function formatContributionDate(dateString) {
+  return new Date(`${dateString}T00:00:00`).toLocaleDateString('en-US', {
+    month: 'long',
+    day: 'numeric',
+    year: 'numeric'
+  });
+}
+
+function contributionText(count, dateString) {
+  return `${count} contribution${count === 1 ? '' : 's'} on ${formatContributionDate(dateString)}`;
+}
+
+async function renderGithubContributions() {
+  if (!contribEl) return;
+
+  try {
+    const res = await fetch('https://github-contributions-api.jogruber.de/v4/lhnminh');
+    if (!res.ok) throw new Error('GitHub contribution data unavailable');
+
+    const data = await res.json();
+    const countsByDate = new Map(
+      data.contributions.map(day => [day.date, day.count])
+    );
+    const today = new Date();
+    const start = new Date(today);
+    start.setMonth(start.getMonth() - 3);
+    const days = [];
+
+    const grid = document.createElement('div');
+    grid.className = 'github-contrib-grid';
+    grid.setAttribute('aria-label', 'GitHub contributions over the last 3 months');
+    grid.addEventListener('mouseleave', () => {
+      if (contribDetailEl) contribDetailEl.textContent = contribHelpText;
+    });
+
+    for (let d = new Date(start); d <= today; d.setDate(d.getDate() + 1)) {
+      const key = dateKey(d);
+      const count = countsByDate.get(key) || 0;
+      days.push({ date: new Date(d), key, count });
+      const cell = document.createElement('span');
+      cell.className = 'github-contrib-day';
+      cell.tabIndex = 0;
+      cell.dataset.level = contributionLevel(count);
+      cell.dataset.detail = contributionText(count, key);
+      cell.title = cell.dataset.detail;
+      cell.setAttribute('aria-label', cell.dataset.detail);
+      cell.addEventListener('mouseenter', () => {
+        if (contribDetailEl) contribDetailEl.textContent = cell.dataset.detail;
+      });
+      cell.addEventListener('focus', () => {
+        if (contribDetailEl) contribDetailEl.textContent = cell.dataset.detail;
+      });
+      cell.addEventListener('blur', () => {
+        if (contribDetailEl) contribDetailEl.textContent = contribHelpText;
+      });
+      grid.appendChild(cell);
+    }
+
+    const total = days.reduce((sum, day) => sum + day.count, 0);
+    const activeDays = days.filter(day => day.count > 0).length;
+
+    if (contribStatsEl) {
+      contribStatsEl.textContent = `last 3 months · ${total} contributions · ${activeDays} active days`;
+    }
+
+    contribEl.replaceChildren(grid);
+  } catch {
+    const fallback = document.createElement('p');
+    fallback.className = 'github-contrib-status';
+    fallback.textContent = 'github activity is temporarily unavailable';
+    contribEl.replaceChildren(fallback);
+    if (contribStatsEl) contribStatsEl.textContent = '';
+    if (contribDetailEl) contribDetailEl.textContent = '';
+  }
+}
+
+renderGithubContributions();
+
 const sections = document.querySelectorAll('section[id]');
 const navLinks = document.querySelectorAll('.sidebar a');
 
