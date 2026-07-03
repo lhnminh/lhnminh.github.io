@@ -19,12 +19,18 @@ const sections = document.querySelectorAll('section[id]');
 const navLinks = document.querySelectorAll('.sidebar a');
 
 function show(id) {
-  const update = () => {
+  transition(() => {
+    if (id === 'writing') {
+      closeWriting();
+    }
     sections.forEach(s => s.classList.toggle('active', s.id === id));
     navLinks.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + id));
     document.querySelector('.intro').classList.toggle('hidden', id !== 'about');
     history.replaceState(null, '', '#' + id);
-  };
+  });
+}
+
+function transition(update) {
   if (document.startViewTransition) {
     document.startViewTransition(update);
   } else {
@@ -39,6 +45,42 @@ navLinks.forEach(a => {
   });
 });
 
+// Expandable writing drafts
+const writingList = document.querySelector('.writing-list');
+const writingReader = document.querySelector('.writing-reader');
+const writingPanels = document.querySelectorAll('[data-writing-panel]');
+const writingBack = document.querySelector('.writing-back');
+
+function closeWriting() {
+  if (!writingList || !writingReader || !writingBack) return;
+  writingReader.classList.remove('open');
+  writingPanels.forEach(panel => panel.classList.remove('active'));
+  writingList.classList.remove('hidden');
+  writingBack.classList.remove('active');
+}
+
+document.querySelectorAll('[data-writing-target]').forEach(item => {
+  item.addEventListener('click', () => {
+    if (!writingList || !writingReader || !writingBack) return;
+    const target = item.dataset.writingTarget;
+    transition(() => {
+      writingPanels.forEach(panel => {
+        panel.classList.toggle('active', panel.dataset.writingPanel === target);
+      });
+      writingList.classList.add('hidden');
+      writingReader.classList.add('open');
+      writingBack.classList.add('active');
+    });
+  });
+});
+
+if (writingBack && writingReader) {
+  writingBack.addEventListener('click', () => {
+    if (!writingReader.classList.contains('open')) return;
+    transition(closeWriting);
+  });
+}
+
 // Show section from URL hash, or default to about
 const initial = location.hash.slice(1);
 show(initial && document.getElementById(initial) ? initial : 'about');
@@ -51,8 +93,8 @@ document.querySelectorAll('.exp-summary').forEach(summary => {
   });
 });
 
-// Cursor spotlight on experience cards
-document.querySelectorAll('.exp-item').forEach(card => {
+// Cursor spotlight on bordered cards
+document.querySelectorAll('.exp-item, .writing-item').forEach(card => {
   let glow = 0, target = 0, raf;
 
   function animate() {
