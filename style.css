@@ -2,9 +2,21 @@
 /* ── Reset ── */
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
+:root {
+  --paper: #f3ecdf;
+  --ink: #1a1a1a;
+  --body: #2f2d29;
+  --soft-text: #7a746b;
+  --muted-text: #928a7e;
+  --faint-text: #9f9689;
+  --rule: #bfae99;
+  --soft-rule: #cbbba6;
+  --glow-rgb: 113, 96, 73;
+}
+
 body {
-  background: #f5f4f0;
-  color: #1a1a1a;
+  background: var(--paper);
+  color: var(--ink);
   font-family: 'Libre Baskerville', Baskerville, serif;
   font-weight: 400;
   -webkit-font-smoothing: antialiased;
@@ -38,7 +50,7 @@ body {
 .sidebar a {
   font-size: 11px;
   font-style: italic;
-  color: #c0bbb4;
+  color: var(--muted-text);
   text-decoration: none;
   transition: color 0.2s;
   display: block;
@@ -46,13 +58,13 @@ body {
 
 .sidebar a:hover,
 .sidebar a.active {
-  color: #1a1a1a;
+  color: var(--ink);
 }
 
 /* ── Main content ── */
 main {
   padding-left: 56px;
-  border-left: 1px solid #dedad4;
+  border-left: 1px solid var(--rule);
 }
 
 /* ── Intro ── */
@@ -74,7 +86,7 @@ main {
 .intro .subtitle {
   font-size: 11px;
   font-style: italic;
-  color: #aaa;
+  color: var(--muted-text);
 }
 
 /* ── Sections ── */
@@ -117,7 +129,7 @@ main {
 .section-label {
   font-size: 10px;
   font-style: italic;
-  color: #bbb;
+  color: var(--faint-text);
   margin-bottom: 22px;
 }
 
@@ -125,7 +137,7 @@ main {
 .about-text {
   font-size: 13px;
   line-height: 1.85;
-  color: #333;
+  color: var(--body);
   margin-bottom: 12px;
 }
 
@@ -139,7 +151,7 @@ main {
 .about-list li {
   font-size: 13px;
   line-height: 1.75;
-  color: #555;
+  color: var(--soft-text);
   padding-left: 16px;
   position: relative;
 }
@@ -148,7 +160,7 @@ main {
   content: '·';
   position: absolute;
   left: 0;
-  color: #bbb;
+  color: var(--faint-text);
 }
 
 /* ── Section header ── */
@@ -166,7 +178,7 @@ main {
 .resume-link {
   font-size: 10px;
   font-style: italic;
-  color: #c0bbb4;
+  color: var(--muted-text);
   text-decoration: none;
   background-image: linear-gradient(currentColor, currentColor);
   background-position: 0 100%;
@@ -176,7 +188,7 @@ main {
 }
 
 .resume-link:hover {
-  color: #1a1a1a;
+  color: var(--ink);
   background-size: 100% 1px;
 }
 
@@ -187,13 +199,13 @@ main {
   margin-bottom: 8px;
   cursor: pointer;
   background:
-    linear-gradient(#f5f4f0, #f5f4f0) padding-box,
+    linear-gradient(var(--paper), var(--paper)) padding-box,
     radial-gradient(
       50px circle at var(--x, 50%) var(--y, 50%),
-      rgba(100, 100, 100, var(--glow, 0)),
+      rgba(var(--glow-rgb), var(--glow, 0)),
       transparent 100%
     ) border-box,
-    linear-gradient(#e8e4de, #e8e4de) border-box;
+    linear-gradient(var(--soft-rule), var(--soft-rule)) border-box;
 }
 
 .exp-item:last-child { margin-bottom: 0; }
@@ -220,7 +232,7 @@ main {
 .exp-role {
   font-size: 11px;
   font-style: italic;
-  color: #aaa;
+  color: var(--muted-text);
 }
 
 .exp-right {
@@ -234,20 +246,20 @@ main {
 
 .exp-date {
   font-size: 11px;
-  color: #bbb;
+  color: var(--faint-text);
   white-space: nowrap;
 }
 
 .exp-plus {
   font-size: 16px;
-  color: #bbb;
+  color: var(--faint-text);
   line-height: 1;
   transition: transform 0.25s ease, color 0.2s;
 }
 
 .exp-item.open .exp-plus {
   transform: rotate(45deg);
-  color: #1a1a1a;
+  color: var(--ink);
 }
 
 .exp-body {
@@ -270,9 +282,9 @@ main {
 .exp-desc {
   padding: 12px 18px 16px;
   font-size: 12px;
-  color: #777;
+  color: var(--soft-text);
   line-height: 1.75;
-  border-top: 1px solid #e8e4de;
+  border-top: 1px solid var(--soft-rule);
   opacity: 0;
   transition: opacity 0.4s ease 0.15s;
 }
@@ -294,14 +306,14 @@ main {
 .edu-detail {
   font-size: 11px;
   font-style: italic;
-  color: #aaa;
+  color: var(--muted-text);
   line-height: 1.7;
 }
 
 /* ── Projects ── */
 .proj-item {
   display: block;
-  border: 1px solid #e8e4de;
+  border: 1px solid var(--soft-rule);
   border-radius: 4px;
   margin-bottom: 12px;
   text-decoration: none;
@@ -311,14 +323,14 @@ main {
 
 .proj-item:last-child { margin-bottom: 0; }
 
-.proj-item:hover { border-color: #aaa; }
+.proj-item:hover { border-color: var(--muted-text); }
 
 .proj-image {
   display: block;
   width: 100%;
   height: 180px;
   object-fit: cover;
-  border-bottom: 1px solid #e8e4de;
+  border-bottom: 1px solid var(--soft-rule);
 }
 
 .proj-content {
@@ -327,13 +339,13 @@ main {
 
 .proj-title {
   font-size: 13px;
-  color: #1a1a1a;
+  color: var(--ink);
   margin-bottom: 8px;
 }
 
 .proj-desc {
   font-size: 12px;
-  color: #777;
+  color: var(--soft-text);
   line-height: 1.75;
 }
 
@@ -341,12 +353,12 @@ main {
 .about-contact {
   font-size: 11px;
   font-style: italic;
-  color: #aaa;
+  color: var(--muted-text);
   margin-top: 20px;
 }
 
 .about-contact a {
-  color: #aaa;
+  color: var(--muted-text);
   text-decoration: none;
   background-image: linear-gradient(currentColor, currentColor);
   background-position: 0 100%;
@@ -356,7 +368,7 @@ main {
 }
 
 .about-contact a:hover {
-  color: #1a1a1a;
+  color: var(--ink);
   background-size: 100% 1px;
 }
 
@@ -372,7 +384,7 @@ main {
   left: 40px;
   font-size: 11px;
   font-style: italic;
-  color: #c0bbb4;
+  color: var(--muted-text);
 }
 
 
@@ -386,7 +398,7 @@ main {
   .sidebar {
     position: static;
     border-right: none;
-    border-bottom: 1px solid #dedad4;
+    border-bottom: 1px solid var(--rule);
     padding-right: 0;
     padding-bottom: 28px;
     margin-bottom: 44px;
