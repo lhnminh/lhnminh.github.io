@@ -468,6 +468,9 @@ button.section-label {
   height: 180px;
   object-fit: cover;
   border-bottom: 1px solid var(--soft-rule);
+  filter: sepia(18%) saturate(70%) contrast(92%) brightness(98%);
+  mix-blend-mode: multiply;
+  opacity: 0.9;
 }
 
 .proj-content {
