@@ -17,9 +17,7 @@ setInterval(updateTime, 10000);
 
 // GitHub contributions
 const contribEl = document.getElementById('githubContribChart');
-const contribDetailEl = document.getElementById('githubContribDetail');
 const contribStatsEl = document.getElementById('githubContribStats');
-const contribHelpText = 'hover to inspect activity';
 
 function contributionLevel(count) {
   if (count === 0) return 0;
@@ -64,9 +62,6 @@ async function renderGithubContributions() {
     const grid = document.createElement('div');
     grid.className = 'github-contrib-grid';
     grid.setAttribute('aria-label', 'GitHub contributions over the last 3 months');
-    grid.addEventListener('mouseleave', () => {
-      if (contribDetailEl) contribDetailEl.textContent = contribHelpText;
-    });
 
     for (let d = new Date(start); d <= today; d.setDate(d.getDate() + 1)) {
       const key = dateKey(d);
@@ -79,15 +74,6 @@ async function renderGithubContributions() {
       cell.dataset.detail = contributionText(count, key);
       cell.title = cell.dataset.detail;
       cell.setAttribute('aria-label', cell.dataset.detail);
-      cell.addEventListener('mouseenter', () => {
-        if (contribDetailEl) contribDetailEl.textContent = cell.dataset.detail;
-      });
-      cell.addEventListener('focus', () => {
-        if (contribDetailEl) contribDetailEl.textContent = cell.dataset.detail;
-      });
-      cell.addEventListener('blur', () => {
-        if (contribDetailEl) contribDetailEl.textContent = contribHelpText;
-      });
       grid.appendChild(cell);
     }
 
@@ -105,7 +91,6 @@ async function renderGithubContributions() {
     fallback.textContent = 'github activity is temporarily unavailable';
     contribEl.replaceChildren(fallback);
     if (contribStatsEl) contribStatsEl.textContent = '';
-    if (contribDetailEl) contribDetailEl.textContent = '';
   }
 }
 
