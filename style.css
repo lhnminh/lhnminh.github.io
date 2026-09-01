@@ -453,10 +453,8 @@ button.section-label {
   border: 1px solid var(--soft-rule);
   border-radius: 4px;
   margin-bottom: 12px;
-  background: var(--paper);
   text-decoration: none;
   overflow: hidden;
-  isolation: isolate;
   transition: border-color 0.2s;
 }
 
@@ -470,9 +468,9 @@ button.section-label {
   height: 180px;
   object-fit: cover;
   border-bottom: 1px solid var(--soft-rule);
-  filter: grayscale(30%) sepia(28%) saturate(60%) contrast(90%) brightness(96%);
+  filter: sepia(18%) saturate(70%) contrast(92%) brightness(98%);
   mix-blend-mode: multiply;
-  opacity: 0.82;
+  opacity: 0.9;
 }
 
 .proj-content {
