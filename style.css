@@ -14,6 +14,11 @@
   --glow-rgb: 113, 96, 73;
 }
 
+html {
+  overflow-y: scroll;
+  scrollbar-gutter: stable;
+}
+
 body {
   background: var(--paper);
   color: var(--ink);
