@@ -25,7 +25,7 @@ body {
   font-family: 'Libre Baskerville', Baskerville, serif;
   font-weight: 400;
   -webkit-font-smoothing: antialiased;
-  min-height: 100vh;
+  min-height: calc(100vh + 1px);
 }
 
 /* ── Layout ── */
