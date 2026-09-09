@@ -574,6 +574,10 @@ button.section-label {
   background-size: 100% 1px;
 }
 
+.github-contrib-label {
+  justify-self: start;
+}
+
 .github-contrib-chart {
   min-height: 94px;
 }
