@@ -49,9 +49,10 @@ body {
   height: 96px;
   background: url('images/ascii-magic-library.png') center 18% / cover no-repeat;
   opacity: 0.12;
-  mix-blend-mode: multiply;
-  -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 62%, transparent 100%);
-  mask-image: linear-gradient(to bottom, #000 0%, #000 62%, transparent 100%);
+  filter: grayscale(1) contrast(1.2) brightness(1.12);
+  mix-blend-mode: darken;
+  -webkit-mask-image: radial-gradient(ellipse closest-side at center, #000 42%, rgba(0, 0, 0, 0.82) 68%, transparent 100%);
+  mask-image: radial-gradient(ellipse closest-side at center, #000 42%, rgba(0, 0, 0, 0.82) 68%, transparent 100%);
   pointer-events: none;
 }
 
