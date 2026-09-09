@@ -43,13 +43,13 @@ body {
   content: '';
   position: absolute;
   z-index: -1;
-  top: 52px;
+  top: 44px;
   left: 40px;
   right: 40px;
-  height: 96px;
-  background: url('images/ascii-magic-library.png') center 18% / cover no-repeat;
-  opacity: 0.12;
-  filter: grayscale(1) contrast(1.2) brightness(1.12);
+  height: 112px;
+  background: url('images/CCT_Spring-Summer_2022_vFINAL1_Page_021_Image_0001_complete.jpg') center 82% / 100% auto no-repeat;
+  opacity: 0.16;
+  filter: saturate(0.55) contrast(1.05) brightness(1.08);
   mix-blend-mode: darken;
   -webkit-mask-image: radial-gradient(ellipse closest-side at center, #000 42%, rgba(0, 0, 0, 0.82) 68%, transparent 100%);
   mask-image: radial-gradient(ellipse closest-side at center, #000 42%, rgba(0, 0, 0, 0.82) 68%, transparent 100%);
@@ -681,10 +681,10 @@ button.section-label {
   }
 
   .layout::before {
-    top: 24px;
+    top: 18px;
     left: 24px;
     right: 24px;
-    height: 72px;
+    height: 84px;
   }
 
   .sidebar {
