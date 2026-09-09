@@ -30,11 +30,29 @@ body {
 
 /* ── Layout ── */
 .layout {
+  position: relative;
+  isolation: isolate;
   display: grid;
   grid-template-columns: 130px 1fr;
   max-width: 820px;
   margin: 0 auto;
-  padding: 88px 40px 140px;
+  padding: 180px 40px 140px;
+}
+
+.layout::before {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  top: 52px;
+  left: 40px;
+  right: 40px;
+  height: 96px;
+  background: url('images/ascii-magic-library.png') center 18% / cover no-repeat;
+  opacity: 0.12;
+  mix-blend-mode: multiply;
+  -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 62%, transparent 100%);
+  mask-image: linear-gradient(to bottom, #000 0%, #000 62%, transparent 100%);
+  pointer-events: none;
 }
 
 /* ── Sidebar ── */
@@ -658,7 +676,14 @@ button.section-label {
 @media (max-width: 640px) {
   .layout {
     grid-template-columns: 1fr;
-    padding: 48px 24px 100px;
+    padding: 120px 24px 100px;
+  }
+
+  .layout::before {
+    top: 24px;
+    left: 24px;
+    right: 24px;
+    height: 72px;
   }
 
   .sidebar {
