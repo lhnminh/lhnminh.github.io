@@ -166,6 +166,44 @@ if (writingBack && writingReader) {
 const initial = location.hash.slice(1);
 show(initial && document.getElementById(initial) ? initial : 'about');
 
+// Expose section navigation to browser agents that support WebMCP
+async function registerWebMcpTools() {
+  if (!document.modelContext?.registerTool) return;
+
+  try {
+    await document.modelContext.registerTool({
+      name: 'navigate_to_section',
+      title: 'Navigate to portfolio section',
+      description: 'Show a section of Morgan Le\'s portfolio in the current page.',
+      inputSchema: {
+        type: 'object',
+        properties: {
+          section: {
+            type: 'string',
+            enum: ['about', 'projects', 'experience', 'education'],
+            description: 'The portfolio section to show.'
+          }
+        },
+        required: ['section'],
+        additionalProperties: false
+      },
+      annotations: {
+        readOnlyHint: true,
+        untrustedContentHint: false,
+        consequentialHint: false
+      },
+      execute: ({ section }) => {
+        show(section);
+        return `Showing the ${section} section.`;
+      }
+    });
+  } catch (error) {
+    console.warn('WebMCP tool registration failed:', error);
+  }
+}
+
+registerWebMcpTools();
+
 // Expandable experience items
 document.querySelectorAll('.exp-summary').forEach(summary => {
   summary.addEventListener('click', () => {
