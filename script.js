@@ -166,6 +166,11 @@ if (writingBack && writingReader) {
 const initial = location.hash.slice(1);
 show(initial && document.getElementById(initial) ? initial : 'about');
 
+// Keep URL fragments from scrolling past the intro when the page opens.
+window.addEventListener('load', () => {
+  window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+}, { once: true });
+
 // Expose section navigation to browser agents that support WebMCP
 async function registerWebMcpTools() {
   if (!document.modelContext?.registerTool) return;
