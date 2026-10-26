@@ -643,22 +643,10 @@ button.section-label {
   margin-top: 12px;
 }
 
-.recent-project-card {
-  display: block;
-  color: inherit;
-  text-decoration: none;
-}
-
 .recent-project-title {
   font-size: 12px;
   font-weight: 400;
   margin-bottom: 8px;
-}
-
-.recent-project-desc {
-  font-size: 11px;
-  color: var(--soft-text);
-  line-height: 1.65;
 }
 
 .recent-project-meta {
