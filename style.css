@@ -525,13 +525,10 @@ button.section-label {
 
 .proj-recognition {
   margin-top: 8px;
-}
-
-.proj-recognition a {
-  position: relative;
-  z-index: 2;
-  color: inherit;
-  text-decoration: none;
+  font-size: 10px;
+  font-style: italic;
+  color: var(--muted-text);
+  line-height: 1.75;
 }
 
 /* ── About contact line ── */
