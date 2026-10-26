@@ -99,16 +99,22 @@ renderGithubContributions();
 const sections = document.querySelectorAll('section[id]');
 const navLinks = document.querySelectorAll('.sidebar a');
 
-function show(id) {
-  transition(() => {
+function show(id, { updateHash = true, animate = true } = {}) {
+  const update = () => {
     if (id === 'writing') {
       closeWriting();
     }
     sections.forEach(s => s.classList.toggle('active', s.id === id));
     navLinks.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + id));
     document.querySelector('.intro').classList.toggle('hidden', id !== 'about');
-    history.replaceState(null, '', '#' + id);
-  });
+    if (updateHash) history.replaceState(null, '', '#' + id);
+  };
+
+  if (animate) {
+    transition(update);
+  } else {
+    update();
+  }
 }
 
 function transition(update) {
@@ -162,9 +168,12 @@ if (writingBack && writingReader) {
   });
 }
 
-// Show section from URL hash, or default to about
+// Show the initial section immediately without adding a URL fragment.
 const initial = location.hash.slice(1);
-show(initial && document.getElementById(initial) ? initial : 'about');
+show(initial && document.getElementById(initial) ? initial : 'about', {
+  updateHash: false,
+  animate: false
+});
 
 // Keep URL fragments from scrolling past the intro when the page opens.
 window.addEventListener('load', () => {
