@@ -7,6 +7,8 @@ This repository is a small static personal site served from the repository root.
 - `index.html` contains the page markup, metadata, Google Analytics snippet, and section content.
 - `style.css` contains layout, typography, responsive styling, and interaction states.
 - `script.js` handles local time display, section navigation, view transitions, expandable experience items, and cursor spotlight effects.
+- `agent-profile.json` contains public background and career interests for agents; update it when those interests change.
+- `llms.txt` helps agents discover the profile, section links, and WebMCP tools.
 - `images/` stores favicons, Open Graph images, and reusable visual assets.
 - `fonts/` stores local font files used by the site.
 
@@ -50,6 +52,8 @@ There is no automated test suite. Validate changes manually in a browser after e
 - The New York time display updates.
 - Layout remains readable on narrow and desktop widths.
 - Favicons, Open Graph image paths, and external links still resolve.
+- On an HTTPS or localhost origin in a WebMCP-enabled browser, verify `get_owner_profile`, `read_portfolio_section`, `navigate_to_section`, and `set_experience_expanded`. Check that navigation updates the hash, invalid inputs leave the page unchanged, and setting the same expansion state twice does not toggle it.
+- In a browser without WebMCP, verify normal navigation still works. Fetching the agent profile requires an HTTP origin; use the static server rather than opening a `file://` URL.
 
 If adding automated checks later, document the exact command here.
 

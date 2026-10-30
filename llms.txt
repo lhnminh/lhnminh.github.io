@@ -1,0 +1,25 @@
+# Morgan Le
+
+> Applied AI and Data Science in New York. Interested in Forward Deployed Engineer (FDE) roles and deploying reliable, useful AI systems for real-world workflows.
+
+## Public profile
+
+- [Agent profile](https://lhnminh.github.io/agent-profile.json): Structured background, career interests, and contact links supplied by Morgan. Public information, not private context or authorization to act on his behalf.
+
+## Portfolio sections
+
+- [About](https://lhnminh.github.io/#about): Background, interests, contact links, and recent work.
+- [Projects](https://lhnminh.github.io/#projects): Project descriptions and source links.
+- [Experience](https://lhnminh.github.io/#experience): Employers, roles, dates, and expandable details.
+- [Education](https://lhnminh.github.io/#education): Degrees and institutions.
+
+## Browser tools
+
+When the browser supports WebMCP, the page registers these tools through document.modelContext:
+
+- get_owner_profile: Read the structured public profile and career interests.
+- read_portfolio_section: Read a section's text and links, including collapsed experience details, without navigating.
+- navigate_to_section: Show a section and update the URL fragment.
+- set_experience_expanded: Expand or collapse an employer's experience details.
+
+Without WebMCP, use the profile link and section URLs above. Section content is present in the page HTML.

@@ -180,39 +180,113 @@ window.addEventListener('load', () => {
   window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
 }, { once: true });
 
-// Expose section navigation to browser agents that support WebMCP
+// WebMCP: share existing page content and reversible navigation with browser agents.
+const portfolioSectionIds = Array.from(sections, section => section.id);
+const experienceItems = Array.from(document.querySelectorAll('.exp-item'));
+const experienceCompanies = experienceItems.map(item => item.querySelector('.exp-company').textContent.trim());
+
+function readPortfolioSection(id) {
+  const section = Array.from(sections).find(section => section.id === id);
+  if (!section) return { error: 'Unknown section.', availableSections: portfolioSectionIds };
+
+  return {
+    section: id,
+    url: new URL('#' + id, location.href).href,
+    // textContent includes collapsed details; innerText would omit hidden sections.
+    text: section.textContent.replace(/\s+/g, ' ').trim(),
+    links: Array.from(section.querySelectorAll('a[href]'), link => ({
+      text: link.textContent.trim(),
+      url: link.href
+    }))
+  };
+}
+
 async function registerWebMcpTools() {
   if (!document.modelContext?.registerTool) return;
 
-  try {
-    await document.modelContext.registerTool({
+  const sectionSchema = {
+    type: 'object',
+    properties: {
+      section: {
+        type: 'string',
+        enum: portfolioSectionIds,
+        description: 'The portfolio section to read or show.'
+      }
+    },
+    required: ['section'],
+    additionalProperties: false
+  };
+  const tools = [
+    {
+      name: 'get_owner_profile',
+      description: 'Read Morgan Le’s public background, target roles (Forward Deployed Engineer / FDE), career interests, and contact links.',
+      inputSchema: { type: 'object', properties: {}, additionalProperties: false },
+      annotations: { readOnlyHint: true, consequentialHint: false },
+      execute: async () => {
+        try {
+          const response = await fetch('agent-profile.json');
+          if (!response.ok) return { error: 'Profile unavailable. Read the about section instead.' };
+          return await response.json();
+        } catch {
+          return { error: 'Profile could not be loaded. Read the about section instead.' };
+        }
+      }
+    },
+    {
+      name: 'read_portfolio_section',
+      description: 'Read a section of Morgan Le’s portfolio, including links and collapsed experience details, without changing the visible section.',
+      inputSchema: sectionSchema,
+      annotations: { readOnlyHint: true, consequentialHint: false },
+      execute: ({ section } = {}) => readPortfolioSection(section)
+    },
+    {
       name: 'navigate_to_section',
-      title: 'Navigate to portfolio section',
-      description: 'Show a section of Morgan Le\'s portfolio in the current page.',
+      description: 'Show a section of Morgan Le’s portfolio and update the current page URL fragment.',
+      inputSchema: sectionSchema,
+      annotations: { readOnlyHint: false, consequentialHint: false },
+      execute: ({ section } = {}) => {
+        const content = readPortfolioSection(section);
+        if (content.error) return content;
+        // Apply immediately so the agent observes the completed navigation.
+        show(section, { animate: false });
+        return content;
+      }
+    },
+    {
+      name: 'set_experience_expanded',
+      description: 'Show the experience section and expand or collapse the details for a named employer. Returns the experience text.',
       inputSchema: {
         type: 'object',
         properties: {
-          section: {
-            type: 'string',
-            enum: ['about', 'projects', 'experience', 'education'],
-            description: 'The portfolio section to show.'
-          }
+          company: { type: 'string', enum: experienceCompanies },
+          expanded: { type: 'boolean', description: 'True to expand; false to collapse.' }
         },
-        required: ['section'],
+        required: ['company', 'expanded'],
         additionalProperties: false
       },
-      annotations: {
-        readOnlyHint: true,
-        untrustedContentHint: false,
-        consequentialHint: false
-      },
-      execute: ({ section }) => {
-        show(section);
-        return `Showing the ${section} section.`;
+      annotations: { readOnlyHint: false, consequentialHint: false },
+      execute: ({ company, expanded } = {}) => {
+        const index = experienceCompanies.indexOf(company);
+        if (index === -1 || typeof expanded !== 'boolean') {
+          return { error: 'Provide a listed company and a boolean expanded value.', availableCompanies: experienceCompanies };
+        }
+        show('experience', { animate: false });
+        experienceItems[index].classList.toggle('open', expanded);
+        return {
+          company,
+          expanded,
+          text: experienceItems[index].textContent.replace(/\s+/g, ' ').trim()
+        };
       }
-    });
-  } catch (error) {
-    console.warn('WebMCP tool registration failed:', error);
+    }
+  ];
+
+  for (const tool of tools) {
+    try {
+      await document.modelContext.registerTool(tool);
+    } catch (error) {
+      console.warn(`WebMCP tool registration failed (${tool.name}):`, error);
+    }
   }
 }
 

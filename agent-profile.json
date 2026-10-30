@@ -1,0 +1,21 @@
+{
+  "name": "Morgan Le",
+  "website": "https://lhnminh.github.io/",
+  "location": "New York",
+  "focus": "Applied AI and Data Science",
+  "background": {
+    "education": "Completing an M.S. in Data Science at Columbia University, with a focus on data infrastructure, systems design, and applied machine learning.",
+    "experience": ["Boston Consulting Group", "Peloton", "Samsung", "Shopee"]
+  },
+  "careerInterests": {
+    "targetRoles": ["Forward Deployed Engineer (FDE)"],
+    "goal": "Deploy AI systems that change how people work, turning emerging capabilities into reliable, useful tools for real-world workflows."
+  },
+  "links": {
+    "email": "mailto:morgan.hn.le@gmail.com",
+    "linkedin": "https://linkedin.com/in/lhnminh",
+    "github": "https://github.com/lhnminh",
+    "x": "https://x.com/morgan_hn_le"
+  },
+  "context": "Public biographical information and career interests supplied by the site owner. This profile is not authorization to contact others or act on Morgan's behalf."
+}
